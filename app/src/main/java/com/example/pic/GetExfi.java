@@ -37,8 +37,8 @@ public class GetExfi {
             list.add(new Msg("曝光时间",7,ExposureTime));
             list.add(new Msg("光圈值",8,FNumber));
             list.add(new Msg("感光度",9,ISOSpeedRatings));
-            list.add(new Msg("经度",10,GPSLatitude));
-            list.add(new Msg("维度",11,GPSLongitude));
+            list.add(new Msg("纬度",10,GPSLatitude));
+            list.add(new Msg("经度",11,GPSLongitude));
 
         } catch (IOException e) {
             e.printStackTrace();

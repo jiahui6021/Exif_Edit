@@ -30,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MsgAdapter adapter;
     private GetExfi getExfi;
+    private FloatingActionButton gps;
     //读写权限
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //按钮点击动作
         openpic = (Button)findViewById(R.id.open_pic);
         img_show = (ImageView)findViewById(R.id.img_show);
+        gps=(FloatingActionButton)findViewById(R.id.fab);
         getExfi = new GetExfi();
         openpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
                             public void onItemClick(RecyclerView parent, View view, int position, Msg data) {
                                 Toast.makeText(MainActivity.this,data.getTitle()+":"+data.getMsg(),Toast.LENGTH_LONG).show();
                                 showCustomizeDialog(data.getType(),data.getMsg());
+                            }
+                        });
+                        gps.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                //Log.d("list10", "onClick: "+((Msg)list.get(10)));
+                                showMap((Msg)list.get(10),(Msg)list.get(11));
                             }
                         });
                     }
@@ -165,5 +176,30 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+    public void showMap(Msg x,Msg y) {
+        String xx=todouble(x.getMsg());
+        String yy=todouble(y.getMsg());
+        Log.d("mapdata", "showMap: "+xx+" "+yy);
+        //Uri locationUri = Uri.parse("geo:0,0?q="+encodedName);
+        //根据经纬度打开地图显示，?z=11表示缩放级别，范围为1-23
+        Uri locationUri = Uri.parse("geo:"+xx+","+yy+"?z=15");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+       // Intent chooser = Intent.createChooser(intent, "请选择地图软件");
+        intent.setData(locationUri);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+    private String todouble(String x){
+        String[] data=x.split("/");
+        double xx=Double.parseDouble(data[0]);
+        String[] data2=data[1].split(",");
+        double yy=Double.parseDouble(data2[1]);
+        data2=data[2].split(",");
+        double zz=Double.parseDouble(data2[1]);
+        Log.d("doublegps", "todouble: "+xx+" "+yy+" "+zz);
+        double ans=xx+yy/60+zz/360000;
+        return String.valueOf(ans);
     }
 }
