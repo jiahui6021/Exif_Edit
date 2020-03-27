@@ -23,15 +23,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="\n点击下面按钮即可打开图片修改EXIF信息"
-                    android:textSize="20dp"
-                    android:layout_gravity="center_horizontal"></TextView>
+                    android:textSize="20sp"
+                    android:layout_gravity="center_horizontal"/>
                 <Button
                     android:id="@+id/open_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="打开图片"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"></Button>
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
             <View
             android:layout_width="match_parent"
@@ -59,15 +59,22 @@
         android:layout_height="1dp"
         android:background="#303F9F"
         android:layout_marginTop="5dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/msg_RecyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="12dp"
-        android:src="@drawable/ic_gps" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@drawable/ic_gps" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/msg_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
 </LinearLayout>
