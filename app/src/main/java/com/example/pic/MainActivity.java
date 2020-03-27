@@ -93,7 +93,14 @@ public class MainActivity extends AppCompatActivity {
                         path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
                         Toast.makeText(MainActivity.this,"点击需要修改的信息即可对其进行修改",Toast.LENGTH_LONG).show();
-                        Bitmap bitmap = BitmapFactory.decodeFile(path);
+                        //大图缩放处理
+                        BitmapFactory.Options options=new BitmapFactory.Options();
+                        options.inJustDecodeBounds=true;
+                        BitmapFactory.decodeFile(path,options);
+                        int inSampleSize=options.outHeight/1000;
+                        options.inSampleSize=inSampleSize;
+                        options.inJustDecodeBounds=false;
+                        Bitmap bitmap = BitmapFactory.decodeFile(path,options);
                         img_show.setImageBitmap(bitmap);
                         list=getExfi.getExfi(path);
                         /*
@@ -126,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
+    //大图处理
+    //private Bitmap decodeSampledBitmapFromResource(Resource res)
     //Dialog
     private void showCustomizeDialog(final int type,final String mag_data) {
         /* @setView 装入自定义View ==> R.layout.dialog_customize
