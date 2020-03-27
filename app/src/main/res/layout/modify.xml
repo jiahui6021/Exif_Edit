@@ -15,4 +15,14 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:text="确定"/>-->
+<!--    <DatePicker-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/modefi_date"-->
+<!--        android:datePickerMode="calendar"/>-->
+
+<!--    <TimePicker-->
+<!--        android:id="@+id/modefi_time"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content" />-->
 </LinearLayout>

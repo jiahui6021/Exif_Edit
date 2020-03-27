@@ -1,5 +1,6 @@
 package com.example.pic;
 
+import android.content.Intent;
 import android.media.ExifInterface;
 import android.util.Log;
 
@@ -37,8 +38,8 @@ public class GetExfi {
             list.add(new Msg("曝光时间",7,ExposureTime));
             list.add(new Msg("光圈值",8,FNumber));
             list.add(new Msg("感光度",9,ISOSpeedRatings));
-            list.add(new Msg("纬度",10,GPSLatitude));
-            list.add(new Msg("经度",11,GPSLongitude));
+            list.add(new Msg("纬度",10,getgps(GPSLatitude)));
+            list.add(new Msg("经度",11,getgps(GPSLongitude)));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,9 +82,11 @@ public class GetExfi {
                     exifInterface.setAttribute(ExifInterface.TAG_ISO,data);
                     break;
                 case 10:
+                    data=regetgps(data);
                     exifInterface.setAttribute(ExifInterface.TAG_GPS_LATITUDE,data);
                     break;
                 case 11:
+                    data=regetgps(data);
                     exifInterface.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,data);
                     break;
             }
@@ -92,5 +95,44 @@ public class GetExfi {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+    private String getgps(String x){
+        int d,dd;
+        try {
+            String[] data=x.split("/");
+            d=Integer.parseInt(data[0]);
+            dd=Integer.parseInt(data[1].split(",")[0]);
+            d/=dd;
+            String xx=String.valueOf(d);
+            String[] data2=data[1].split(",");
+            d=Integer.parseInt(data2[1]);
+            dd=Integer.parseInt(data[2].split(",")[0]);
+            d/=dd;
+            String yy=String.valueOf(d);
+            data2=data[2].split(",");
+            d= Integer.parseInt(data2[1]);
+            dd=Integer.parseInt(data[3]);
+            d/=dd;
+            String zz=String.valueOf(d);
+            return xx+"°"+yy+"′"+zz+"″";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String regetgps(String x){
+        try{
+            String[] data=x.split("°");
+            String xx=data[0];
+            String[] data2=data[1].split("′");
+            String yy=data2[0];
+            data=data2[1].split("″");
+            String zz=data[0];
+            Log.d("regetgps", "regetgps: "+xx+"/1,"+yy+"/1,"+zz+"0000/10000");
+            return xx+"/1,"+yy+"/1,"+zz+"00/100";
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return "1";
     }
 }

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
-                        Toast.makeText(MainActivity.this,"获取到图片路径："+path,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"点击需要修改的信息即可对其进行修改",Toast.LENGTH_LONG).show();
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         img_show.setImageBitmap(bitmap);
                         list=getExfi.getExfi(path);
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         customizeDialog.setView(dialogView);
         TextView textView = (TextView)dialogView.findViewById(R.id.modify_edit);
         textView.setText(mag_data);
+        //textView.setVisibility(View.GONE);
         Toast.makeText(MainActivity.this,"请严格按照原有格式规范填写，否则可能导致软件崩溃或图片损坏！",Toast.LENGTH_LONG).show();
         customizeDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
@@ -192,14 +193,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private String todouble(String x){
-        String[] data=x.split("/");
+        String[] data=x.split("°");
         double xx=Double.parseDouble(data[0]);
-        String[] data2=data[1].split(",");
-        double yy=Double.parseDouble(data2[1]);
-        data2=data[2].split(",");
-        double zz=Double.parseDouble(data2[1]);
+        String[] data2=data[1].split("′");
+        double yy=Double.parseDouble(data2[0]);
+        data=data2[1].split("″");
+        double zz=Double.parseDouble(data[0]);
         Log.d("doublegps", "todouble: "+xx+" "+yy+" "+zz);
-        double ans=xx+yy/60+zz/360000;
+        double ans=xx+yy/60+zz/3600;
+        Log.d("todouble", "todouble: "+zz);
         return String.valueOf(ans);
     }
 }
