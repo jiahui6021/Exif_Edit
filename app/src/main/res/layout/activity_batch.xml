@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BatchActivity"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    源文件："
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/batch_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="  请点击右下角加号添加源文件与目标文件"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#303F9F"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    目标文件："
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/batch_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="90dp"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@android:drawable/ic_input_add" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/batch_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@android:drawable/ic_media_play" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/banch_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</LinearLayout>

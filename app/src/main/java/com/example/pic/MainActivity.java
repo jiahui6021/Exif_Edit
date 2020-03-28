@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         adapter.setOnItemClickListener(new MsgAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(RecyclerView parent, View view, int position, Msg data) {
-                                Toast.makeText(MainActivity.this,data.getTitle()+":"+data.getMsg(),Toast.LENGTH_LONG).show();
+                                //Toast.makeText(MainActivity.this,data.getTitle()+":"+data.getMsg(),Toast.LENGTH_LONG).show();
                                 showCustomizeDialog(data.getType(),data.getMsg());
                             }
                         });
@@ -133,8 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-    //大图处理
-    //private Bitmap decodeSampledBitmapFromResource(Resource res)
+
     //Dialog
     private void showCustomizeDialog(final int type,final String mag_data) {
         /* @setView 装入自定义View ==> R.layout.dialog_customize
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         list=getExfi.getExfi(path);
                         adapter.setMsgList(list);
                         recyclerView.setAdapter(adapter);
-                        Log.d("setexfi", "final");
+                        //Log.d("setexfi", "final");
                     }
                 });
         customizeDialog.show();
@@ -178,9 +177,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch(item.getItemId()){
             case R.id.menu_about:
-                Intent intent=new Intent(MainActivity.this,AboutActivity.class);
+                intent=new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menu_batch:
+                intent=new Intent(MainActivity.this,BatchActivity.class);
                 startActivity(intent);
                 break;
         }

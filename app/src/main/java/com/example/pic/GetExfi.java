@@ -121,6 +121,9 @@ public class GetExfi {
         return null;
     }
     private String regetgps(String x){
+        if(x==""){
+            return null;
+        }
         try{
             String[] data=x.split("°");
             String xx=data[0];

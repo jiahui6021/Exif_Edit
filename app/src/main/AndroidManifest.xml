@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_nlauncher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".BatchActivity"></activity>
         <activity android:name=".AboutActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
