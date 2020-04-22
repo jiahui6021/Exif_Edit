@@ -71,6 +71,15 @@
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
             app:srcCompat="@drawable/ic_gps" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@android:drawable/ic_input_delete" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/msg_RecyclerView"
             android:layout_width="match_parent"

@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private MsgAdapter adapter;
     private GetExfi getExfi;
     private FloatingActionButton gps;
+    private FloatingActionButton clear;
     //读写权限
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         openpic = (Button)findViewById(R.id.open_pic);
         img_show = (ImageView)findViewById(R.id.img_show);
         gps=(FloatingActionButton)findViewById(R.id.fab);
+        clear=(FloatingActionButton)findViewById(R.id.clear);
         getExfi = new GetExfi();
         openpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
                                 showMap((Msg)list.get(10),(Msg)list.get(11));
                             }
                         });
+                        clear.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                showClearDialog();
+                            }
+                        });
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -135,6 +143,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Dialog
+    private void showClearDialog(){
+        AlertDialog.Builder customizeDialog =
+                new AlertDialog.Builder(MainActivity.this);
+        customizeDialog.setTitle("警告");
+        customizeDialog.setMessage("点击确定后会清空主页显示的图片信息，请谨慎选择！");
+        customizeDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for(int i=0;i<=13;i++){
+                    getExfi.setexif(i,path,"null");
+                    getExfi.setexif(i,path,"0");
+                }
+//                getExfi.setexif(4,path,"0");
+//                getExfi.setexif(7,path,"0");
+                list=getExfi.getExfi(path);
+                adapter.setMsgList(list);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+        customizeDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        customizeDialog.show();
+    }
     private void showCustomizeDialog(final int type,final String mag_data) {
         /* @setView 装入自定义View ==> R.layout.dialog_customize
          * 由于dialog_customize.xml只放置了一个EditView，因此和图8一样
@@ -193,6 +228,10 @@ public class MainActivity extends AppCompatActivity {
     public void showMap(Msg x,Msg y) {
         String xx=todouble(x.getMsg());
         String yy=todouble(y.getMsg());
+        if(xx=="1"&&yy=="1"){
+            Toast.makeText(MainActivity.this,"图片GPS信息有误或缺失，显示失败",Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.d("mapdata", "showMap: "+xx+" "+yy);
         //Uri locationUri = Uri.parse("geo:0,0?q="+encodedName);
         //根据经纬度打开地图显示，?z=11表示缩放级别，范围为1-23
@@ -205,15 +244,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private String todouble(String x){
-        String[] data=x.split("°");
-        double xx=Double.parseDouble(data[0]);
-        String[] data2=data[1].split("′");
-        double yy=Double.parseDouble(data2[0]);
-        data=data2[1].split("″");
-        double zz=Double.parseDouble(data[0]);
-        Log.d("doublegps", "todouble: "+xx+" "+yy+" "+zz);
-        double ans=xx+yy/60+zz/3600;
-        Log.d("todouble", "todouble: "+zz);
-        return String.valueOf(ans);
+        try{
+            String[] data=x.split("°");
+            double xx=Double.parseDouble(data[0]);
+            String[] data2=data[1].split("′");
+            double yy=Double.parseDouble(data2[0]);
+            data=data2[1].split("″");
+            double zz=Double.parseDouble(data[0]);
+            Log.d("doublegps", "todouble: "+xx+" "+yy+" "+zz);
+            double ans=xx+yy/60+zz/3600;
+            Log.d("todouble", "todouble: "+zz);
+            return String.valueOf(ans);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "1";
     }
 }

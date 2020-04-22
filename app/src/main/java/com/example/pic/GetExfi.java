@@ -29,7 +29,7 @@ public class GetExfi {
             String GPSLongitude=exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
 
             list.add(new Msg("方向",0,Orientation));
-            list.add(new Msg("日期",1,DateTime));
+            list.add(new Msg("文件日期",1,DateTime));
             list.add(new Msg("制造商",2,Make));
             list.add(new Msg("设备型号",3,Model));
             list.add(new Msg("闪光灯",4,Flash));
@@ -41,6 +41,7 @@ public class GetExfi {
             list.add(new Msg("纬度",10,getgps(GPSLatitude)));
             list.add(new Msg("经度",11,getgps(GPSLongitude)));
             list.add(new Msg("数字化时间",12,exifInterface.getAttribute(ExifInterface.TAG_DATETIME_DIGITIZED)));
+            list.add(new Msg("拍摄时间",13,exifInterface.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL)));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,6 +93,8 @@ public class GetExfi {
                     break;
                 case 12:
                     exifInterface.setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED,data);
+                case 13:
+                    exifInterface.setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL,data);
             }
             exifInterface.saveAttributes();
         }
@@ -100,6 +103,8 @@ public class GetExfi {
         }
     }
     private String getgps(String x){
+        if(x==null)
+            return null;
         int d,dd;
         try {
             String[] data=x.split("/");
@@ -127,6 +132,8 @@ public class GetExfi {
         if(x==""){
             return null;
         }
+        if(x=="null")
+            return null;
         try{
             String[] data=x.split("°");
             String xx=data[0];
