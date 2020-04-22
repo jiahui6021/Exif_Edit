@@ -121,7 +121,7 @@ public class BatchActivity extends AppCompatActivity {
         try {
             Msg d;
             for(String path:pathList){
-                for(int i=0;i<12;i++){
+                for(int i=0;i<=12;i++){
                     d=(Msg)list.get(i);
                     getExfi.setexif(i,path,d.getMsg());
                 }

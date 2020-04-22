@@ -1,7 +1,7 @@
 package com.example.pic;
 
 import android.content.Intent;
-import android.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.util.Log;
 
 import java.io.IOException;
@@ -23,8 +23,8 @@ public class GetExfi {
             String ImageWidth=exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH);
             String ImageLength=exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH);
             String ExposureTime=exifInterface.getAttribute(ExifInterface.TAG_EXPOSURE_TIME);
-            String FNumber=exifInterface.getAttribute(ExifInterface.TAG_APERTURE);
-            String ISOSpeedRatings=exifInterface.getAttribute(ExifInterface.TAG_ISO);
+            String FNumber=exifInterface.getAttribute(ExifInterface.TAG_APERTURE_VALUE);
+            String ISOSpeedRatings=exifInterface.getAttribute(ExifInterface.TAG_ISO_SPEED);
             String GPSLatitude=exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
             String GPSLongitude=exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
 
@@ -40,6 +40,7 @@ public class GetExfi {
             list.add(new Msg("感光度",9,ISOSpeedRatings));
             list.add(new Msg("纬度",10,getgps(GPSLatitude)));
             list.add(new Msg("经度",11,getgps(GPSLongitude)));
+            list.add(new Msg("数字化时间",12,exifInterface.getAttribute(ExifInterface.TAG_DATETIME_DIGITIZED)));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,10 +77,10 @@ public class GetExfi {
                     exifInterface.setAttribute(ExifInterface.TAG_EXPOSURE_TIME,data);
                     break;
                 case 8:
-                    exifInterface.setAttribute(ExifInterface.TAG_APERTURE,data);
+                    exifInterface.setAttribute(ExifInterface.TAG_APERTURE_VALUE,data);
                     break;
                 case 9:
-                    exifInterface.setAttribute(ExifInterface.TAG_ISO,data);
+                    exifInterface.setAttribute(ExifInterface.TAG_ISO_SPEED,data);
                     break;
                 case 10:
                     data=regetgps(data);
@@ -89,6 +90,8 @@ public class GetExfi {
                     data=regetgps(data);
                     exifInterface.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,data);
                     break;
+                case 12:
+                    exifInterface.setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED,data);
             }
             exifInterface.saveAttributes();
         }
