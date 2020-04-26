@@ -87,8 +87,14 @@ public class GetExfi {
                     data=regetgps(data);
                     exifInterface.setAttribute(ExifInterface.TAG_GPS_LATITUDE,data);
                     break;
+                case 100:
+                    exifInterface.setAttribute(ExifInterface.TAG_GPS_LATITUDE,data);
+                    break;
                 case 11:
                     data=regetgps(data);
+                    exifInterface.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,data);
+                    break;
+                case 111:
                     exifInterface.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,data);
                     break;
                 case 12:

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +13,13 @@
         android:roundIcon="@mipmap/ic_nlauncher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BatchActivity"></activity>
+        <activity android:name=".LocationActicity"></activity>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="f1f425198dae5a6c33206706b603c5fe" />
+
+        <activity android:name=".BatchActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

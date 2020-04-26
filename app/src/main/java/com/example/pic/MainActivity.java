@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.net.URI;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -139,6 +140,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 break;
+            case 2:
+                if(resultCode==RESULT_OK){
+                    String xx=data.getStringExtra("x");
+                    String yy=data.getStringExtra("y");
+                    Log.d("gps", "onActivityResult: "+xx+"  "+yy);
+                    getExfi.setexif(10,path,xx);
+                    getExfi.setexif(11,path,yy);
+                    list=getExfi.getExfi(path);
+                    adapter.setMsgList(list);
+                    recyclerView.setAdapter(adapter);
+                }
         }
     }
 
@@ -200,6 +212,16 @@ public class MainActivity extends AppCompatActivity {
                         //Log.d("setexfi", "final");
                     }
                 });
+        //地图选择坐标
+        if(type==10||type==11){
+            customizeDialog.setNegativeButton("使用地图选择位置", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent=new Intent(MainActivity.this,LocationActicity.class);
+                    startActivityForResult(intent,2);
+                }
+            });
+        }
         customizeDialog.show();
     }
 
@@ -253,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
             double zz=Double.parseDouble(data[0]);
             Log.d("doublegps", "todouble: "+xx+" "+yy+" "+zz);
             double ans=xx+yy/60+zz/3600;
-            Log.d("todouble", "todouble: "+zz);
+            Log.d("todouble", "todouble: "+ans);
             return String.valueOf(ans);
         }catch (Exception e){
             e.printStackTrace();
