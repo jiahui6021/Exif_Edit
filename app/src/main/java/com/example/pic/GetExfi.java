@@ -24,7 +24,8 @@ public class GetExfi {
             String ImageLength=exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH);
             String ExposureTime=exifInterface.getAttribute(ExifInterface.TAG_EXPOSURE_TIME);
             String FNumber=exifInterface.getAttribute(ExifInterface.TAG_APERTURE_VALUE);
-            String ISOSpeedRatings=exifInterface.getAttribute(ExifInterface.TAG_ISO_SPEED);
+            String ISOSpeedRatings=exifInterface.getAttribute(ExifInterface.TAG_PHOTOGRAPHIC_SENSITIVITY);
+            //String ISOSpeedRatings=exifBugFix.getAttribute(ExifInterface.TAG_ISO_SPEED);
             String GPSLatitude=exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
             String GPSLongitude=exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
 
@@ -81,7 +82,7 @@ public class GetExfi {
                     exifInterface.setAttribute(ExifInterface.TAG_APERTURE_VALUE,data);
                     break;
                 case 9:
-                    exifInterface.setAttribute(ExifInterface.TAG_ISO_SPEED,data);
+                    exifInterface.setAttribute(ExifInterface.TAG_PHOTOGRAPHIC_SENSITIVITY,data);
                     break;
                 case 10:
                     data=regetgps(data);
